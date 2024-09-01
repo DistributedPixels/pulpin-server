@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
-from controller.controlador_evento import ControladorEvento
-from model.evento import Evento
+from src.controller.controlador_evento import ControladorEvento
+from src.model.evento import Evento
 from typing import List
 
 app = FastAPI()
@@ -10,8 +10,8 @@ def read_root():
     return {"Hola": "Pulpin 🐙"}
 
 @app.get("/eventos", response_model=List[Evento])
-def lee_eventos():
-    return ControladorEvento.get_eventos()
+async def lee_eventos():
+    return await ControladorEvento.get_eventos()
 
 @app.get("/eventos/{id_evento}", response_model=Evento)
 def lee_evento(id_evento: int):

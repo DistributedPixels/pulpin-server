@@ -1,17 +1,17 @@
 from pydantic import BaseModel, model_validator, AnyUrl
-from typing import Union, Tuple
+from typing import Union, Tuple, Optional
 from datetime import datetime
 from src.model.tipo_evento import TipoEvento
 
 class Evento(BaseModel):
     titulo: str
-    ubicacion: str
+    ubicacion: Optional[str] = None
     descripcion: str
-    fecha: Union[datetime, Tuple[datetime, datetime]]  # Permite una fecha única o un rango de fechas
-    tipo: TipoEvento #Un enumerado nuestro
+    fecha: str # Permite una fecha única o un rango de fechas: Union[datetime, Tuple[datetime, datetime]]
+    tipo:  str #Un enumerado nuestro: Optional[TipoEvento] = None
     proveedor: str
     urlPublicacion: AnyUrl #para validar que es una url correcta
-    imagen: str
+    imagen: Optional[str] = None
 
     @model_validator(mode="before")
     def check_date_range(cls, values):

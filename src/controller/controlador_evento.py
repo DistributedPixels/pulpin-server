@@ -4,11 +4,8 @@ from src.db.db_temporal import db_temporal, get_lne_rss_eventos
 
 class ControladorEvento:
     @staticmethod
-    def get_eventos() -> List[Evento]:
-        eventos = get_lne_rss_eventos()
-        if not isinstance(eventos, list):
-            raise TypeError("Los eventos tienen algún formato incorrecto.")
-        return eventos
+    async def get_eventos() -> List[Evento]:
+        return await get_lne_rss_eventos()
 
     @staticmethod
     def get_evento(id_evento: int) -> Optional[Evento]:

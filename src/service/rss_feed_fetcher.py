@@ -1,47 +1,23 @@
-import feedparser
 import httpx
+from typing import Type, List, Dict
+from src.service.parser.parser_interface import IParserEvento
 
 class RSSFeedFetcher:
-
-    def __init__(self, feed_url: str):
-        self.feed_url = feed_url
-
-    async def fetch_feed(self):
-        """
-        Hace una solicitud HTTP para obtener el contenido del feed RSS.
-        """
+    @staticmethod
+    async def _fetch_feed(feed_url: str) -> str: #el _ es para indicar que es privado
         async with httpx.AsyncClient() as client:
-            response = await client.get(self.feed_url)
+            response = await client.get(feed_url)
         return response.text
 
-    def parse_feed(self, feed_content: str):
+    @staticmethod
+    async def get_eventos(feed_url: str, parser: Type['IParserEvento']) -> List[Dict[str, str]]:
         """
-        Analiza el contenido del feed RSS y extrae los eventos.
-        """
-        feed = feedparser.parse(feed_content)
-        events = []
+        Método que recibe la url del RSS y el parser correspondiente y devuelve la lista de eventos
 
-        for entry in feed.entries:
-            event = {
-                "title": entry.title,
-                "link": entry.link,
-                "published": entry.published,
-                "description": entry.description,
-            }
-            events.append(event)
-            # Mostrar el evento en consola
-            print(f"Título: {entry.title}")
-            print(f"Link: {entry.link}")
-            print(f"Publicado: {entry.published}")
-            print(f"Descripción: {entry.description}")
-            print("-" * 40)
-
-        return events
-
-    async def get_events(self):
+        :param feed_url: URL del feed de RSS
+        :param parser: Parser correspondiente
+        :return: Lista de eventos obtenidos del feed y parser.
         """
-        Método público que obtiene los eventos del feed RSS.
-        """
-        feed_content = await self.fetch_feed()
-        events = self.parse_feed(feed_content)
+        feed_content = await RSSFeedFetcher._fetch_feed(feed_url)
+        events = parser.parse_feed(feed_content)
         return events
