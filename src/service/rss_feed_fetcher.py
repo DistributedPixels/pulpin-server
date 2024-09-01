@@ -1,7 +1,6 @@
 import feedparser
 import httpx
 
-
 class RSSFeedFetcher:
 
     def __init__(self, feed_url: str):
