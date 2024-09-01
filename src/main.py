@@ -1,5 +1,3 @@
-from typing import Union
-
 from fastapi import FastAPI
 
 # URL del feed RSS de La Nueva España
