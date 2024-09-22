@@ -1,6 +1,6 @@
 import httpx
 from typing import Type, List, Dict
-from src.service.parser.parser_interface import IParserEvento
+from src.service.parser.parser_interface import IParserEvent
 
 class RSSFeedFetcher:
     @staticmethod
@@ -10,7 +10,7 @@ class RSSFeedFetcher:
         return response.text
 
     @staticmethod
-    async def get_eventos(feed_url: str, parser: Type['IParserEvento']) -> List[Dict[str, str]]:
+    async def get_events(feed_url: str, parser: Type['IParserEvent']) -> List[Dict[str, str]]:
         """
         Método que recibe la url del RSS y el parser correspondiente y devuelve la lista de eventos
 

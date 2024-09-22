@@ -1,12 +1,12 @@
 import xml.etree.ElementTree as ET
-from src.service.parser.parser_interface import IParserEvento
-from src.model.evento import Evento
+from src.service.parser.parser_interface import IParserEvent
+from src.model.event import Event
 
 
-class LNEParserEvento(IParserEvento):
+class LNEParserEvent(IParserEvent):
     @staticmethod
     def parse_feed(feed_content: str):
-        eventos = []
+        events = []
         # Parsear el contenido XML del feed
         root = ET.fromstring(feed_content)
 
@@ -17,18 +17,18 @@ class LNEParserEvento(IParserEvento):
         for item in root.findall('.//item'):
             # Extraer información de la etiqueta media:content
             media_thumbnail = item.find('media:thumbnail', namespaces)
-            imagen_url = media_thumbnail.attrib['url'] if media_thumbnail is not None else ''
+            url_image = media_thumbnail.attrib['url'] if media_thumbnail is not None else ''
 
-            evento = Evento(
-                titulo=item.find('title').text,
-                ubicacion='',
-                descripcion=item.find('description').text,
-                fecha='',
-                tipo='',
-                proveedor='La Nueva España',
-                urlPublicacion=item.find('link').text or '',
-                imagen=imagen_url
+            event = Event(
+                title=item.find('title').text,
+                location='',
+                description=item.find('description').text,
+                date='',
+                type='',
+                provider='La Nueva España',
+                url=item.find('link').text or '',
+                image=url_image
             )
-            eventos.append(evento)
+            events.append(event)
 
-        return eventos
+        return events
