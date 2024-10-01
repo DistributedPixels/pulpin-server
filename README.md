@@ -1,8 +1,9 @@
-# pulpin-server
+# Pulpin server
 
-Project structure reference: https://github.com/zhanymkanov/fastapi-best-practices
+Referencia para la estructura del proyecto: https://github.com/zhanymkanov/fastapi-best-practices
 
 #¿Cómo ejecutar?
+Ir a la carpeta `src` y ejecutar: 
 ```
-uvicorn src.main:app
+fastapi dev
 ```
