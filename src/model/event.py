@@ -11,5 +11,5 @@ class Event(BaseModel):
     end_date: str
     type: str
     provider: str
-    url: AnyUrl  # para validar que es una url correcta
+    url: AnyUrl
     image: Optional[str] = None

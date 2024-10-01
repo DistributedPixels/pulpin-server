@@ -1,9 +1,10 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from src.controller.event_controller import EventController
 from src.model.event import Event
 from typing import List
 
 app = FastAPI()
+favicon_path = 'favicon.ico'
 
 
 @app.get("/")
