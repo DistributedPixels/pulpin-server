@@ -1,7 +1,7 @@
 from .connection import Connection
 from .model import EventDB, Base
 
-class DatabaseOperations:
+class EventRepository:
     def __init__(self):
         self.connection = Connection()
 
