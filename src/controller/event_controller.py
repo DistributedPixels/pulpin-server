@@ -8,5 +8,8 @@ class EventController:
     def __init__(self):
         self.service = EventService()
 
-    async def get_events(self) -> List[Event]:
-        return await self.service.get_events()
+    def get_events(self) -> List[Event]:
+        return self.service.get_events()
+
+    def add_event(self, event_data: Event) -> Event:
+        return self.service.add_event(event_data)

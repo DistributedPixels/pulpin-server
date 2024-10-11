@@ -1,31 +1,29 @@
 from .connection import Connection
-from .model import EventDB, Base
+from src.model.event import Event
+from typing import List
+
 
 class EventRepository:
+    EVENTS_TABLE = "events"
+
     def __init__(self):
         self.connection = Connection()
 
-    async def create_tables(self):
-        """Create all tables in the database."""
-        await Base.metadata.create_all(self.connection._engine)
-
-    async def add_event(self, event: EventDB):
-        session = self.connection.get_session()
+    def add_event(self, event: Event) -> Event:
         try:
-            await session.add(event)
-            session.commit()
-        except Exception as e:
-            session.rollback()
-            raise e
-        finally:
-            session.close()
-
-    async def get_all_events(self):
-        session = self.connection.get_session()
-        try:
-            events = await session.query(EventDB).all()
-            return events
+            event_data = self.connection.table(self.EVENTS_TABLE) \
+                .insert(event.model_dump(exclude_none=True)) \
+                .execute()
+            return Event(**event_data.data[0])
         except Exception as e:
             raise e
-        finally:
-            session.close()
+
+    def get_all_events(self) -> List[Event]:
+        try:
+            event_data = self.connection.table(self.EVENTS_TABLE) \
+                .select("*") \
+                .execute()
+            return [Event(**event) for event in event_data.data]
+
+        except Exception as e:
+            raise e
