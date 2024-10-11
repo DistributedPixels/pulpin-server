@@ -19,7 +19,7 @@ class Connection:
         return cls._instance
 
     def get_session(self):
-        """Devuelve una nueva sesión para interactuar con la base de datos."""
+        """Returns a new session to interact with data base"""
         return self._Session()
 
     def __del__(self):
