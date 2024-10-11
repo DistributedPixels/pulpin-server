@@ -5,6 +5,7 @@ from typing import List
 
 app = FastAPI()
 favicon_path = 'favicon.ico'
+controller = EventController()
 
 
 @app.get("/")
@@ -14,4 +15,4 @@ def read_root():
 
 @app.get("/events", response_model=List[Event])
 async def get_events():
-    return await EventController.get_events()
+    return await controller.get_events()

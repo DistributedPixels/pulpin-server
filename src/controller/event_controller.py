@@ -1,12 +1,12 @@
 from typing import List
 
 from src.model.event import Event
-from src.service.api_consumer_service import ApiEventConsumerService
-from src.service.parser import AgendaGijonParser
+from src.service.event_service import EventService
 
 
 class EventController:
-    @staticmethod
-    async def get_events() -> List[Event]:
-        url = "https://drupal.gijon.es/es/listado_eventos_tes3/?_format=json"
-        return ApiEventConsumerService.consume(url, AgendaGijonParser())
+    def __init__(self):
+        self.service = EventService()
+
+    async def get_events(self) -> List[Event]:
+        return await self.service.get_events()

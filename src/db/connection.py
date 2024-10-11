@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -9,6 +10,7 @@ class Connection:
 
     def __new__(cls):
         if cls._instance is None:
+            load_dotenv()
             url = os.getenv("TURSO_DATABASE_URL")
             auth_token = os.getenv("TURSO_AUTH_TOKEN")
             connection_string = f"{url}?auth_token={auth_token}"
@@ -21,7 +23,4 @@ class Connection:
     def get_session(self):
         """Returns a new session to interact with data base"""
         return self._Session()
-
-    def __del__(self):
-        self.close()
 
