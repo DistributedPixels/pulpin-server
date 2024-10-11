@@ -5,11 +5,11 @@ from pydantic import BaseModel, AnyUrl
 
 class Event(BaseModel):
     title: str
-    description: str
+    description: Optional[str] = None
     location: Optional[str] = None
     start_date: str
     end_date: str
-    type: str
+    type: Optional[str] = None
     provider: str
-    url: AnyUrl
-    image: Optional[str] = None
+    external_url: str  # para validar que es una url correcta
+    image_url: Optional[str] = None
