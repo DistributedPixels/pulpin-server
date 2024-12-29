@@ -8,9 +8,9 @@ class Event(BaseModel):
     title: str
     description: Optional[str] = None
     location: Optional[str] = None
-    start_date: datetime
-    end_date: datetime
+    start_date: str
+    end_date: str
     type: Optional[str] = None
     provider: str
-    external_url: AnyUrl  # para validar que es una url correcta
-    image_url: Optional[AnyUrl] = None
+    external_url: str  # para validar que es una url correcta
+    image_url: Optional[str] = None

@@ -1,3 +1,4 @@
 fastapi[standard]~=0.112.0
 pydantic==2.8.2
 requests==2.32.3
+supabase==2.9.0
