@@ -1,6 +1,5 @@
 from typing import List
 
-from src.model.event import Event
 from src.service.event_service import EventService
 
 

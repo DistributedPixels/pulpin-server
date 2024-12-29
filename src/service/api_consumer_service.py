@@ -6,7 +6,9 @@ from src.model.event import Event
 from src.service.parser import EventParser
 
 
+
 class ApiEventConsumerService:
+  
     @staticmethod
     def consume(url: str, parser: EventParser) -> List[Event]:
         response = requests.get(url)
