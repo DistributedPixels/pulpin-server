@@ -1,6 +1,8 @@
 from typing import List
-from src.model.event import Event
+
 from src.db.event_repository import EventRepository
+from src.model.event import Event
+
 
 class EventService:
     def __init__(self):
