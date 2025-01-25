@@ -1,28 +1,28 @@
-from fastapi import FastAPI, HTTPException
-from src.controller.event_controller import EventController
-from src.model.event import Event
-from typing import List
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from src.router import event_router, organizer_router
 
 app = FastAPI()
 favicon_path = 'favicon.ico'
-controller = EventController()
+
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(event_router.router)
+app.include_router(organizer_router.router)
 
 
 @app.get("/")
-def read_root():
+def root():
     return {"Hola": "Pulpin 🐙"}
-
-
-@app.get("/events", response_model=List[Event])
-def get_events():
-    try:
-        return controller.get_events()
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-@app.post("/events", response_model=Event)
-def add_event(event: Event):
-    try:
-        return controller.add_event(event)
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
